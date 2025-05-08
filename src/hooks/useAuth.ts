@@ -17,8 +17,8 @@ export const useSignup = () => {
       queryClient.invalidateQueries({ queryKey: ["signup"] });
       router.push("/dashboard");
       addToast({
-        title: "Signup successfull",
-        color: "success"
+        title: "Signup successful",
+        color: "success",
       });
     },
     onError: (error) => {
@@ -44,8 +44,8 @@ export const useLogin = () => {
       queryClient.invalidateQueries({ queryKey: ["login"] });
       router.push("/dashboard");
       addToast({
-        title: "Login successfull",
-        color: "success"
+        title: "Login successful",
+        color: "success",
       });
     },
     onError: (error) => {
