@@ -90,9 +90,9 @@ export const useEditTweet = (id: string) => {
         description: error.message,
         color: "danger",
       });
-    }
-  })
-}
+    },
+  });
+};
 
 export const useDeleteTweet = (id: string) => {
   const queryClient = useQueryClient();
