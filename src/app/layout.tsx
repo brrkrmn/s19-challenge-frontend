@@ -1,3 +1,5 @@
+import ReactQueryProvider from "@/providers/ReactQueryProvider/ReactQueryProvider";
+import ThemeProvider from "@/providers/ThemeProvider/ThemeProvider";
 import type { Metadata } from "next";
 import "./globals.css";
 
@@ -13,13 +15,13 @@ const RootLayout = ({
 }>) => {
   return (
     <html lang="en">
-      <body
-        className={`antialiased`}
-      >
-        {children}
+      <body className={`antialiased`}>
+        <ReactQueryProvider>
+          <ThemeProvider>{children}</ThemeProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );
-}
+};
 
 export default RootLayout;
