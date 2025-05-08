@@ -6,19 +6,17 @@ const userService = {
   getAll: async () => {
     const response = await backendService.get<UserResponse[]>(
       API_URLS.users.main
-    )
+    );
     return response.data;
   },
   getById: async (id: string) => {
-    const response = await backendService.get(
+    const response = await backendService.get<UserResponse>(
       API_URLS.users.id(id)
-    )
+    );
     return response.data;
   },
   follow: async (id: string) => {
-    const response = backendService.post(
-      API_URLS.users.follow(id)
-    )
+    const response = backendService.post<void>(API_URLS.users.follow(id));
     return (await response).data;
   }
 }

@@ -1,3 +1,6 @@
+import { CommentResponse } from "../comment/comment.types";
+import { TweetResponse } from "../tweet/tweet.types";
+
 export type UserResponse = {
   id: string;
   name: string;
@@ -10,30 +13,14 @@ export type UserResponse = {
   retweets: TweetResponse[];
   comments: CommentResponse[];
   authorities: Authority[];
-}
+};
 
 export type UserPreview = {
   id: string;
   name: string;
   username: string;
-}
+};
 
 export type Authority = {
   authority: "USER" | "ADMIN";
-}
-
-export type TweetResponse = {
-  id: string;
-  content: string;
-  user: UserPreview;
-  likedBy: UserPreview[];
-  comments: CommentResponse[];
-  retweetedBy: UserPreview[];
-}
-
-export type CommentResponse = {
-  id: string;
-  content: string;
-  tweetId: string;
-  userId: string;
-}
+};
