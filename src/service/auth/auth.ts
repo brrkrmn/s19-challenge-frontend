@@ -1,52 +1,23 @@
-export type SignupRequest = {
-  username: string;
-  name: string;
-  email: string;
-  about?: string;
-  password: string;
-}
+import { backendService } from "@/api";
+import { API_URLS } from "@/api/api.constants";
+import { UserResponse } from "../user/user.types";
+import { LoginRequest, SignupRequest } from "./auth.types";
 
-export type LoginRequest = {
-  username: string;
-  password: string;
-}
+const authService = {
+  signup: async (data: SignupRequest) => {
+    const response = await backendService.post<UserResponse>(
+      API_URLS.auth.signup,
+      data
+    );
+    return response.data;
+  },
+  login: async (data: LoginRequest) => {
+    const response = await backendService.post<UserResponse>(
+      API_URLS.auth.login,
+      data
+    );
+    return response.data;
+  },
+};
 
-export type UserResponse = {
-  id: string;
-  name: string;
-  username: string;
-  about?: string;
-  following: UserPreview[];
-  followers: UserPreview[];
-  tweets: TweetResponse[];
-  likes: TweetResponse[];
-  retweets: TweetResponse[];
-  comments: CommentResponse[];
-  authorities: Authority[];
-}
-
-export type UserPreview = {
-  id: string;
-  name: string;
-  username: string;
-}
-
-export type TweetResponse = {
-  id: string;
-  content: string;
-  user: UserPreview;
-  likedBy: UserPreview[];
-  comments: CommentResponse[];
-  retweetedBy: UserPreview[];
-}
-
-export type CommentResponse = {
-  id: string;
-  content: string;
-  tweetId: string;
-  userId: string;
-}
-
-export type Authority = {
-  authority: "USER" | "ADMIN";
-}
+export default authService;
