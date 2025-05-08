@@ -13,7 +13,7 @@ export const useGetTweets = () => {
 
 export const useGetTweet = (id: string) => {
   return useQuery({
-    queryKey: ["getTweet"],
+    queryKey: ["getTweet", id],
     queryFn: () => tweetService.getById(id),
     staleTime: 3000,
   });
@@ -123,7 +123,7 @@ export const useLikeTweet = (id: string) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: ["likeTweet"],
+    mutationKey: ["likeTweet", id],
     mutationFn: () => {
       return tweetService.like(id);
     },
@@ -140,15 +140,15 @@ export const useLikeTweet = (id: string) => {
         description: error.message,
         color: "danger",
       });
-    }
-  })
+    },
+  });
 }
 
 export const useRetweet = (id: string) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: ["retweet"],
+    mutationKey: ["retweet", id],
     mutationFn: () => {
       return tweetService.retweet(id);
     },
@@ -165,6 +165,6 @@ export const useRetweet = (id: string) => {
         description: error.message,
         color: "danger",
       });
-    }
-  })
+    },
+  });
 }

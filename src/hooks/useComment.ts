@@ -13,7 +13,7 @@ export const useGetComments = () => {
 
 export const useGetComment = (id: string) => {
   return useQuery({
-    queryKey: ["getComment"],
+    queryKey: ["getComment", id],
     queryFn: () => commentService.getById(id),
     staleTime: 3000,
   });
@@ -23,7 +23,7 @@ export const useCreateComment = (id: string) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: ["createComment"],
+    mutationKey: ["createComment", id],
     mutationFn: (data: CommentRequest) => {
       return commentService.create(id, data);
     },
@@ -40,8 +40,8 @@ export const useCreateComment = (id: string) => {
         description: error.message,
         color: "danger",
       });
-    }
-  })
+    },
+  });
 }
 
 export const useEditComment = (id: string) => {
@@ -74,12 +74,12 @@ export const useDeleteComment = (id: string) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: ["deleteComment"],
+    mutationKey: ["deleteComment", id],
     mutationFn: () => {
       return commentService.delete(id);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["deleteComment"] })
+      queryClient.invalidateQueries({ queryKey: ["deleteComment"] });
       addToast({
         title: "Comment deleted successfully",
         color: "success",
@@ -91,6 +91,6 @@ export const useDeleteComment = (id: string) => {
         description: error.message,
         color: "danger",
       });
-    }
-  })
+    },
+  });
 }
