@@ -1,11 +1,35 @@
 "use client";
 
 import Nav from "@/components/Nav/Nav";
+import { useAuthContext } from "@/context/AuthContext";
 import { Button, Card, CardBody, Input, Link, Tab, Tabs } from "@heroui/react";
 import { useState } from "react";
 
 const Home = () => {
   const [selected, setSelected] = useState<React.Key>("login");
+  const { login, signup } = useAuthContext();
+
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    login({
+      username: formData.get("username") as string,
+      password: formData.get("password") as string,
+    });
+  };
+
+  const handleSignup = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log("IN SIGNUO: ", e.currentTarget);
+    const formData = new FormData(e.currentTarget);
+    signup({
+      username: formData.get("username") as string,
+      name: formData.get("username") as string,
+      email: formData.get("email") as string,
+      about: "",
+      password: formData.get("password") as string,
+    });
+  };
 
   return (
     <div className="min-h-screen w-full h-full flex flex-col items-center justify-start gap-20 min-w-xs px-4 py-4">
@@ -25,14 +49,19 @@ const Home = () => {
               onSelectionChange={setSelected}
             >
               <Tab key="login" title="Login" className="h-full">
-                <form className="flex flex-col gap-4 h-full justify-between">
+                <form
+                  onSubmit={handleLogin}
+                  className="flex flex-col gap-4 h-full justify-between"
+                >
                   <Input
+                    name="username"
                     isRequired
                     label="Username"
                     placeholder="Enter your username"
                     type="text"
                   />
                   <Input
+                    name="password"
                     isRequired
                     label="Password"
                     placeholder="Enter your password"
@@ -49,27 +78,33 @@ const Home = () => {
                     </Link>
                   </p>
                   <div className="flex gap-2 justify-end">
-                    <Button fullWidth color="primary">
+                    <Button type="submit" fullWidth color="primary">
                       Login
                     </Button>
                   </div>
                 </form>
               </Tab>
               <Tab key="sign-up" title="Sign up">
-                <form className="flex flex-col gap-4 h-[300px]">
+                <form
+                  onSubmit={handleSignup}
+                  className="flex flex-col gap-4 h-[300px]"
+                >
                   <Input
+                    name="username"
                     isRequired
                     label="Username"
                     placeholder="Enter your username"
                     type="text"
                   />
                   <Input
+                    name="email"
                     isRequired
                     label="Email"
                     placeholder="Enter your email"
                     type="email"
                   />
                   <Input
+                    name="password"
                     isRequired
                     label="Password"
                     placeholder="Enter your password"
@@ -86,7 +121,7 @@ const Home = () => {
                     </Link>
                   </p>
                   <div className="flex gap-2 justify-end">
-                    <Button fullWidth color="primary">
+                    <Button type="submit" fullWidth color="primary">
                       Sign up
                     </Button>
                   </div>
