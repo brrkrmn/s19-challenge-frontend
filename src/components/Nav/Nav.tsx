@@ -1,8 +1,14 @@
 import { useAuthContext } from "@/context/AuthContext";
-import { Button, Link, Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/react";
+import {
+  Button,
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+} from "@heroui/react";
 
 const Nav = () => {
-  const { user } = useAuthContext();
+  const { user, logout } = useAuthContext();
 
   return (
     <Navbar maxWidth="xl" isBordered={true}>
@@ -13,18 +19,15 @@ const Nav = () => {
       </NavbarBrand>
       {user && (
         <NavbarContent justify="end">
-          <NavbarItem className="hidden lg:flex">
-            <Link href="#">Login</Link>
-          </NavbarItem>
           <NavbarItem>
-            <Button as={Link} color="primary" href="#" variant="flat">
-              Sign Up
+            <Button onPress={logout} color="primary" href="#" variant="flat">
+              Log out
             </Button>
           </NavbarItem>
         </NavbarContent>
       )}
     </Navbar>
   );
-}
+};
 
 export default Nav;
