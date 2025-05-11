@@ -1,14 +1,17 @@
 import { useAuthContext } from "@/context/AuthContext";
 import {
   Button,
+  Link,
   Navbar,
   NavbarBrand,
   NavbarContent,
   NavbarItem,
 } from "@heroui/react";
+import { usePathname } from "next/navigation";
 
 const Nav = () => {
   const { user, logout } = useAuthContext();
+  const pathname = usePathname();
 
   return (
     <Navbar maxWidth="xl" isBordered={true}>
@@ -18,13 +21,36 @@ const Nav = () => {
         </div>
       </NavbarBrand>
       {user && (
-        <NavbarContent justify="end">
-          <NavbarItem>
-            <Button onPress={logout} color="primary" href="#" variant="flat">
-              Log out
-            </Button>
-          </NavbarItem>
-        </NavbarContent>
+        <>
+          <NavbarContent className="hidden sm:flex gap-4" justify="center">
+            <NavbarItem isActive={pathname === "/dashboard"}>
+              <Link
+                color={pathname === "/dashboard" ? "primary" : "foreground"}
+                aria-current="page"
+                href="/"
+              >
+                Home
+              </Link>
+            </NavbarItem>
+            <NavbarItem isActive={pathname.split("/")[1] === "user"}>
+              <Link
+                color={
+                  pathname.split("/")[1] === "user" ? "primary" : "foreground"
+                }
+                href={`user/${user?.id}`}
+              >
+                Profile
+              </Link>
+            </NavbarItem>
+          </NavbarContent>
+          <NavbarContent justify="end">
+            <NavbarItem>
+              <Button onPress={logout} color="primary" href="#" variant="flat">
+                Log out
+              </Button>
+            </NavbarItem>
+          </NavbarContent>
+        </>
       )}
     </Navbar>
   );
