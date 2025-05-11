@@ -1,3 +1,5 @@
+"use client";
+
 import { useLogin, useSignup } from "@/hooks/useAuth";
 import { LoginRequest, SignupRequest } from "@/service/auth/auth.types";
 import { UserResponse } from "@/service/user/user.types";
@@ -14,7 +16,7 @@ export const useAuthContext = () => {
     throw new Error("You can only call this hook inside AuthContextProvider");
   }
   return context;
-}
+};
 
 const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<UserResponse | null>(null);
@@ -29,7 +31,7 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
       setUser(user);
       setBasicAuth(user.username, user.password);
     }
-  }, [])
+  }, []);
 
   const signup = async (data: SignupRequest) => {
     await signupMutation.mutateAsync(data);
@@ -47,7 +49,7 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
     setUser(null);
     clearBasicAuth();
     localStorage.removeItem(LS_USER);
-  }
+  };
 
   return (
     <AppContext.Provider
@@ -60,7 +62,7 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
     >
       {children}
     </AppContext.Provider>
-  )
-}
+  );
+};
 
 export default AuthContextProvider;

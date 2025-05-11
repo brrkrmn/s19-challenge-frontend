@@ -1,6 +1,8 @@
+import AuthContextProvider from "@/context/AuthContext/AuthContextProvider";
 import ReactQueryProvider from "@/providers/ReactQueryProvider/ReactQueryProvider";
 import ThemeProvider from "@/providers/ThemeProvider/ThemeProvider";
 import type { Metadata } from "next";
+import AuthLayout from "./authLayout";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -17,7 +19,11 @@ const RootLayout = ({
     <html lang="en">
       <body className={`antialiased`}>
         <ReactQueryProvider>
-          <ThemeProvider>{children}</ThemeProvider>
+          <ThemeProvider>
+            <AuthContextProvider>
+              <AuthLayout>{children}</AuthLayout>
+            </AuthContextProvider>
+          </ThemeProvider>
         </ReactQueryProvider>
       </body>
     </html>
