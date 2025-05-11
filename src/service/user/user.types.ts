@@ -5,6 +5,7 @@ export type UserResponse = {
   id: string;
   name: string;
   username: string;
+  password: string;
   about?: string;
   following: UserPreview[];
   followers: UserPreview[];

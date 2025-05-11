@@ -15,3 +15,7 @@ export const setBasicAuth = (username: string, password: string) => {
     }
   }
 }
+
+export const clearBasicAuth = () => {
+  config.headers.Authorization = null;
+};
