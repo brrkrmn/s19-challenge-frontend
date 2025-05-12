@@ -40,21 +40,21 @@ const Profile = () => {
             selectedKey={selected}
             onSelectionChange={setSelected}
           >
-            <Tab key="tweets" title="Tweets" className="h-full">
+            <Tab key="tweets" title="Tweets" className="h-full w-full">
               <div className="flex flex-col items-center justify-center gap-6">
                 {user.tweets.map((tweet) => (
                   <TweetCard tweet={tweet} key={tweet.id} />
                 ))}
               </div>
             </Tab>
-            <Tab key="retweets" title="Retweets">
+            <Tab key="retweets" title="Retweets" className="h-full w-full">
               <div className="flex flex-col items-center justify-center gap-6">
                 {user.retweets.map((tweet) => (
                   <TweetCard tweet={tweet} key={tweet.id} />
                 ))}
               </div>
             </Tab>
-            <Tab key="likes" title="Likes">
+            <Tab key="likes" title="Likes" className="h-full w-full">
               <div className="flex flex-col items-center justify-center gap-6">
                 {user.likes.map((tweet) => (
                   <TweetCard tweet={tweet} key={tweet.id} />
@@ -64,16 +64,16 @@ const Profile = () => {
             <Tab
               key="followers"
               title="Followers"
-              className="flex items-center justify-center gap-10"
+              className="flex items-center justify-center gap-10 h-full w-full"
             >
-              <div className="flex items-center justify-center gap-10 flex-wrap">
+              <div className="flex flex-col items-center justify-center gap-6 flex-wrap">
                 {user.followers.map((user) => (
                   <UserCard user={user} key={user.id} />
                 ))}
               </div>
             </Tab>
-            <Tab key="following" title="Followings">
-              <div className="flex items-center justify-center gap-10 flex-wrap">
+            <Tab key="following" title="Followings" className="h-full w-full">
+              <div className="flex flex-col items-center justify-center gap-6 flex-wrap">
                 {user.following.map((user) => (
                   <UserCard user={user} key={user.id} />
                 ))}

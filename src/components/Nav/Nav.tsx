@@ -16,13 +16,16 @@ const Nav = () => {
   return (
     <Navbar maxWidth="xl" isBordered={true}>
       <NavbarBrand>
-        <div className="font-bold text-4xl text-center text-primary font-sans">
+        <Link
+          href={`${user ? "/dashboard" : "/"}`}
+          className="font-bold text-4xl text-center text-primary font-sans"
+        >
           Twitter
-        </div>
+        </Link>
       </NavbarBrand>
       {user && (
         <>
-          <NavbarContent className="hidden sm:flex gap-4" justify="center">
+          <NavbarContent className="hidden sm:flex gap-10" justify="center">
             <NavbarItem isActive={pathname === "/dashboard"}>
               <Link
                 color={pathname === "/dashboard" ? "primary" : "foreground"}

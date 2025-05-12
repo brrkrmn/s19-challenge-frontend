@@ -17,9 +17,9 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="h-full flex flex-col items-center justify-start gap-6">
+    <div className="h-full w-full max-w-[500px] flex flex-col items-center justify-start gap-6 pb-40">
       <Form
-        className="w-full min-w-full max-w-xs flex flex-row items-end justify-center"
+        className="w-full flex flex-row items-end justify-center"
         onSubmit={handleSubmit}
       >
         <Textarea
