@@ -6,4 +6,5 @@ export type AuthContextValue = null | {
   signup: (data: SignupRequest) => void;
   login: (data: LoginRequest) => void;
   logout: () => void;
-}
+  initialized: boolean;
+};

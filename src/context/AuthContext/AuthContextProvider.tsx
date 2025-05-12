@@ -24,6 +24,7 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   const signupMutation = useSignup();
   const loginMutation = useLogin();
   const { data: updatedUser } = useGetUser(user?.id || "");
+  const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
     const currentUser = localStorage.getItem(LS_USER);
@@ -33,6 +34,7 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
       setUser(user);
       setBasicAuth(user.username, user.password);
     }
+    setInitialized(true);
   }, []);
 
   useEffect(() => {
@@ -68,6 +70,7 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
         signup,
         login,
         logout,
+        initialized,
       }}
     >
       {children}
