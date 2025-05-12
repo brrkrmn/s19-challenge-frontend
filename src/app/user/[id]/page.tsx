@@ -68,21 +68,21 @@ const User = () => {
             onSelectionChange={setSelected}
           >
             <Tab key="tweets" title="Tweets" className="h-full">
-              <div className="flex flex-col items-center justify-center gap-6 flex-wrap">
+              <div className="flex flex-col items-center justify-center gap-6">
                 {user.tweets.map((tweet) => (
                   <TweetCard tweet={tweet} key={tweet.id} />
                 ))}
               </div>
             </Tab>
             <Tab key="retweets" title="Retweets">
-              <div className="flex flex-col items-center justify-center gap-6 flex-wrap">
+              <div className="flex flex-col items-center justify-center gap-6">
                 {user.retweets.map((tweet) => (
                   <TweetCard tweet={tweet} key={tweet.id} />
                 ))}
               </div>
             </Tab>
             <Tab key="likes" title="Likes">
-              <div className="flex flex-col items-center justify-center gap-6 flex-wrap">
+              <div className="flex flex-col items-center justify-center gap-6">
                 {user.likes.map((tweet) => (
                   <TweetCard tweet={tweet} key={tweet.id} />
                 ))}

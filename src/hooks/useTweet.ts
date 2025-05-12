@@ -29,6 +29,8 @@ export const useCreateTweet = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["createTweet"] });
+      queryClient.invalidateQueries({ queryKey: ["getTweets"] });
+      queryClient.invalidateQueries({ queryKey: ["getTweet"] });
       addToast({
         title: "Tweet posted successfully!",
         color: "success",
@@ -40,9 +42,9 @@ export const useCreateTweet = () => {
         description: error.message,
         color: "danger",
       });
-    }
-  })
-}
+    },
+  });
+};
 
 export const useReplaceTweet = (id: string) => {
   const queryClient = useQueryClient();
@@ -53,7 +55,7 @@ export const useReplaceTweet = (id: string) => {
       return tweetService.replaceOrCreate(id, data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["replaceTweet"] })
+      queryClient.invalidateQueries({ queryKey: ["replaceTweet"] });
       addToast({
         title: "Tweet edited successfully!",
         color: "success",
@@ -65,9 +67,9 @@ export const useReplaceTweet = (id: string) => {
         description: error.message,
         color: "danger",
       });
-    }
-  })
-}
+    },
+  });
+};
 
 export const useEditTweet = (id: string) => {
   const queryClient = useQueryClient();
@@ -115,9 +117,9 @@ export const useDeleteTweet = (id: string) => {
         description: error.message,
         color: "danger",
       });
-    }
-  })
-}
+    },
+  });
+};
 
 export const useLikeTweet = (id: string) => {
   const queryClient = useQueryClient();
@@ -129,6 +131,7 @@ export const useLikeTweet = (id: string) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["likeTweet"] });
+      queryClient.invalidateQueries({ queryKey: ["getTweets"] });
       queryClient.invalidateQueries({ queryKey: ["getUser"] });
       addToast({
         title: "Tweet liked successfully",
@@ -155,6 +158,7 @@ export const useRetweet = (id: string) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["retweet"] });
+      queryClient.invalidateQueries({ queryKey: ["getTweets"] });
       queryClient.invalidateQueries({ queryKey: ["getUser"] });
       addToast({
         title: "Tweet retweeted successfully",
