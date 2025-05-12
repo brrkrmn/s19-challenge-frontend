@@ -1,9 +1,15 @@
 "use client";
 
 import CommentCard from "@/components/CommentCard/CommentCard";
+import TweetPopover from "@/components/TweetPopover/TweetPopover";
 import { useAuthContext } from "@/context/AuthContext";
 import { useCreateComment } from "@/hooks/useComment";
-import { useGetTweet, useLikeTweet, useRetweet } from "@/hooks/useTweet";
+import {
+  useDeleteTweet,
+  useGetTweet,
+  useLikeTweet,
+  useRetweet,
+} from "@/hooks/useTweet";
 import {
   Avatar,
   Button,
@@ -12,13 +18,20 @@ import {
   CardFooter,
   CardHeader,
   Divider,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
   Form,
   Textarea,
 } from "@heroui/react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { BsThreeDots } from "react-icons/bs";
+import { FaRegTrashAlt } from "react-icons/fa";
 import { FaRegComment, FaRegHeart, FaRetweet } from "react-icons/fa6";
+import { FiEdit } from "react-icons/fi";
 
 const Tweet = () => {
   const params = useParams();
@@ -31,6 +44,7 @@ const Tweet = () => {
   const [liked, setLiked] = useState(false);
   const [value, setValue] = useState("");
   const createCommentMutation = useCreateComment(id);
+  const deleteTweetMutation = useDeleteTweet(id);
 
   useEffect(() => {
     if (authUser && tweet) {
@@ -59,8 +73,30 @@ const Tweet = () => {
 
   if (!tweet) return null;
   return (
-    <div className="pb-40">
-      <Card className="bg-transparent w-full max-w-[500px] gap-2">
+    <div className="pb-40 w-full max-w-[450px]">
+      <Card className="bg-transparent w-full max-w-[450px] gap-2 relative">
+        {authUser?.id.toString() === tweet.user.id.toString() && (
+          <Dropdown closeOnSelect={false}>
+            <DropdownTrigger className="absolute top-4 z-50 right-0">
+              <Button size="sm" variant="light" isIconOnly className="text-xl">
+                <BsThreeDots />
+              </Button>
+            </DropdownTrigger>
+            <DropdownMenu variant="bordered">
+              <DropdownItem startContent={<FiEdit />} key="edit">
+                <TweetPopover tweet={tweet} />
+              </DropdownItem>
+              <DropdownItem
+                className="text-danger hover:text-danger"
+                startContent={<FaRegTrashAlt />}
+                key="delete"
+                onPress={() => deleteTweetMutation.mutate()}
+              >
+                Delete
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        )}
         <CardHeader className="justify-between">
           <Link href={`/user/${tweet.user.id}`} className="flex gap-5">
             <Avatar

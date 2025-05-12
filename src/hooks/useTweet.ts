@@ -2,14 +2,15 @@ import tweetService from "@/service/tweet/tweet";
 import { TweetRequest } from "@/service/tweet/tweet.types";
 import { addToast } from "@heroui/react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 export const useGetTweets = () => {
   return useQuery({
     queryKey: ["getTweets"],
     queryFn: tweetService.getAll,
-    staleTime: 3000
+    staleTime: 3000,
   });
-}
+};
 
 export const useGetTweet = (id: string) => {
   return useQuery({
@@ -17,7 +18,7 @@ export const useGetTweet = (id: string) => {
     queryFn: () => tweetService.getById(id),
     staleTime: 3000,
   });
-}
+};
 
 export const useCreateTweet = () => {
   const queryClient = useQueryClient();
@@ -56,6 +57,8 @@ export const useReplaceTweet = (id: string) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["replaceTweet"] });
+      queryClient.invalidateQueries({ queryKey: ["getTweet"] });
+      queryClient.invalidateQueries({ queryKey: ["getTweets"] });
       addToast({
         title: "Tweet edited successfully!",
         color: "success",
@@ -81,6 +84,8 @@ export const useEditTweet = (id: string) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["updateTweet"] });
+      queryClient.invalidateQueries({ queryKey: ["getTweet"] });
+      queryClient.invalidateQueries({ queryKey: ["getTweets"] });
       addToast({
         title: "Tweet updated successfully",
         color: "success",
@@ -98,6 +103,7 @@ export const useEditTweet = (id: string) => {
 
 export const useDeleteTweet = (id: string) => {
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   return useMutation({
     mutationKey: ["deleteTweet", id],
@@ -106,10 +112,13 @@ export const useDeleteTweet = (id: string) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["deleteTweet"] });
+      queryClient.invalidateQueries({ queryKey: ["getTweet"] });
+      queryClient.invalidateQueries({ queryKey: ["getTweets"] });
       addToast({
         title: "Tweet deleted successfully",
         color: "success",
       });
+      router.push("/dashboard");
     },
     onError: (error) => {
       addToast({
