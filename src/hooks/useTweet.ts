@@ -132,6 +132,7 @@ export const useLikeTweet = (id: string) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["likeTweet"] });
       queryClient.invalidateQueries({ queryKey: ["getTweets"] });
+      queryClient.invalidateQueries({ queryKey: ["getTweet"] });
       queryClient.invalidateQueries({ queryKey: ["getUser"] });
       addToast({
         title: "Tweet liked successfully",
@@ -159,6 +160,7 @@ export const useRetweet = (id: string) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["retweet"] });
       queryClient.invalidateQueries({ queryKey: ["getTweets"] });
+      queryClient.invalidateQueries({ queryKey: ["getTweet"] });
       queryClient.invalidateQueries({ queryKey: ["getUser"] });
       addToast({
         title: "Tweet retweeted successfully",

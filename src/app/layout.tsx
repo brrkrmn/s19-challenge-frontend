@@ -16,15 +16,15 @@ const RootLayout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`antialiased`}>
-        <ReactQueryProvider>
-          <ThemeProvider>
+        <ThemeProvider>
+          <ReactQueryProvider>
             <AuthContextProvider>
               <AuthLayout>{children}</AuthLayout>
             </AuthContextProvider>
-          </ThemeProvider>
-        </ReactQueryProvider>
+          </ReactQueryProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

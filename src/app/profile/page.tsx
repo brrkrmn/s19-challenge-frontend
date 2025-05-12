@@ -12,8 +12,8 @@ const Profile = () => {
 
   if (!user) return null;
   return (
-    <div className="w-full min-h-screen flex flex-col px-4 sm:px-32 justify-start items-center gap-10">
-      <div className="bg-zinc-900 py-2 px-4 rounded-lg w-[40%] flex items-center justify-start gap-6">
+    <div className="w-full min-h-screen flex flex-col px-4 sm:px-32 justify-start items-center gap-2">
+      <div className="bg-zinc-900 py-2 px-4 rounded-lg w-[450px] flex items-center justify-start gap-6">
         <Avatar
           className="w-32 h-32"
           showFallback
@@ -26,11 +26,15 @@ const Profile = () => {
         </div>
       </div>
       <Card className="bg-transparent" fullWidth>
-        <CardBody>
+        <CardBody className="flex flex-col items-center">
           <Tabs
-            fullWidth
+            radius="full"
+            classNames={{
+              tabList: "w-[450px]",
+            }}
             aria-label="Tabs form"
             size="md"
+            className="w-full items-center justify-center"
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-expect-error
             selectedKey={selected}
