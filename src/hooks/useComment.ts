@@ -29,6 +29,8 @@ export const useCreateComment = (id: string) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["createComment"] });
+      queryClient.invalidateQueries({ queryKey: ["getTweet"] });
+      queryClient.invalidateQueries({ queryKey: ["getTweets"] });
       addToast({
         title: "Comment posted successfully!",
         color: "success",
@@ -54,6 +56,8 @@ export const useEditComment = (id: string) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["updateComment"] });
+      queryClient.invalidateQueries({ queryKey: ["getTweet"] });
+      queryClient.invalidateQueries({ queryKey: ["getTweets"] });
       addToast({
         title: "Comment updated successfully",
         color: "success",
@@ -80,6 +84,8 @@ export const useDeleteComment = (id: string) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["deleteComment"] });
+      queryClient.invalidateQueries({ queryKey: ["getTweet"] });
+      queryClient.invalidateQueries({ queryKey: ["getTweets"] });
       addToast({
         title: "Comment deleted successfully",
         color: "success",

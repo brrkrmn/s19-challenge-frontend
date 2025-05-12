@@ -3,6 +3,7 @@ export type CommentResponse = {
   content: string;
   tweetId: string;
   userId: string;
+  username: string;
 };
 
 export type CommentRequest = {

@@ -56,7 +56,7 @@ const User = () => {
           {isFollowing ? "Unfollow" : "Follow"}
         </Button>
       </div>
-      <Card fullWidth>
+      <Card className="bg-transparent" fullWidth>
         <CardBody>
           <Tabs
             fullWidth
