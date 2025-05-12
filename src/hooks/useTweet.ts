@@ -129,6 +129,7 @@ export const useLikeTweet = (id: string) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["likeTweet"] });
+      queryClient.invalidateQueries({ queryKey: ["getUser"] });
       addToast({
         title: "Tweet liked successfully",
         color: "primary",
@@ -142,7 +143,7 @@ export const useLikeTweet = (id: string) => {
       });
     },
   });
-}
+};
 
 export const useRetweet = (id: string) => {
   const queryClient = useQueryClient();
@@ -154,6 +155,7 @@ export const useRetweet = (id: string) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["retweet"] });
+      queryClient.invalidateQueries({ queryKey: ["getUser"] });
       addToast({
         title: "Tweet retweeted successfully",
         color: "primary",
@@ -167,4 +169,4 @@ export const useRetweet = (id: string) => {
       });
     },
   });
-}
+};

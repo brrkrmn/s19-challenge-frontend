@@ -52,6 +52,7 @@ const tweetService = {
   like: async (id: string) => {
     const response = await backendService.post<TweetResponse>(
       API_URLS.tweets.like(id),
+      null,
       config
     );
     return response.data;
@@ -59,6 +60,7 @@ const tweetService = {
   retweet: async (id: string) => {
     const response = await backendService.post<TweetResponse>(
       API_URLS.tweets.retweet(id),
+      null,
       config
     );
     return response.data;
