@@ -21,6 +21,7 @@ const userService = {
   follow: async (id: string) => {
     const response = backendService.post<void>(
       API_URLS.users.follow(id),
+      null,
       config
     );
     return (await response).data;

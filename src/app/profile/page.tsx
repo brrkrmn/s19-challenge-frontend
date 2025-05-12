@@ -1,31 +1,14 @@
-"use client"
+"use client";
 
 import TweetCard from "@/components/TweetCard/TweetCard";
 import UserCard from "@/components/UserCard/UserCard";
 import { useAuthContext } from "@/context/AuthContext";
-import { useFollow, useGetUser } from "@/hooks/useUser";
-import { Avatar, Button, Card, CardBody, Tab, Tabs } from "@heroui/react";
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Avatar, Card, CardBody, Tab, Tabs } from "@heroui/react";
+import { useState } from "react";
 
-const User = () => {
-  const params = useParams();
-  const id = params.id as string;
-  const { data: user } = useGetUser(id);
-  const { user: authUser } = useAuthContext();
-  const followMutation = useFollow(id);
+const Profile = () => {
   const [selected, setSelected] = useState<React.Key>("tweets");
-  const [isFollowing, setIsFollowing] = useState(false);
-
-  useEffect(() => {
-    if (authUser && user) {
-      setIsFollowing(user.followers.some((f) => f.id === authUser.id));
-    }
-  }, [authUser, user]);
-
-  const handleFollow = () => {
-    followMutation.mutate();
-  };
+  const { user } = useAuthContext();
 
   if (!user) return null;
   return (
@@ -41,20 +24,6 @@ const User = () => {
           <p className="text-2xl text-foreground font-semibold">{user.name}</p>
           <p className="text-xl text-foreground-300">{user.about}</p>
         </div>
-        <Button
-          className={
-            isFollowing
-              ? "bg-transparent text-foreground border-default-200"
-              : ""
-          }
-          color="primary"
-          radius="full"
-          size="sm"
-          variant={isFollowing ? "bordered" : "solid"}
-          onPress={handleFollow}
-        >
-          {isFollowing ? "Unfollow" : "Follow"}
-        </Button>
       </div>
       <Card fullWidth>
         <CardBody>
@@ -105,4 +74,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default Profile;

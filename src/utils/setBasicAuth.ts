@@ -4,16 +4,13 @@ type Config = {
   }
 }
 
-export let config: Config = {
-  headers: { Authorization: null }
-}
+export const config: Config = {
+  headers: { Authorization: null },
+};
 
 export const setBasicAuth = (username: string, password: string) => {
-  config = {
-    headers: {
-      Authorization: `Basic ${Buffer.from(`${username}:${password}`).toString('base64')}`
-    }
-  }
+  const encoded = btoa(`${username}:${password}`);
+  config.headers.Authorization = `Basic ${encoded}`;
 }
 
 export const clearBasicAuth = () => {

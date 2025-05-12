@@ -26,6 +26,7 @@ export const useFollow = (id: string) => {
     mutationFn: () => userService.follow(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["follow"] });
+      queryClient.invalidateQueries({ queryKey: ["getUser"] });
     },
     onError: (error) => {
       addToast({

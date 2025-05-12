@@ -32,12 +32,10 @@ const Nav = () => {
                 Home
               </Link>
             </NavbarItem>
-            <NavbarItem isActive={pathname.split("/")[1] === "user"}>
+            <NavbarItem isActive={pathname === "/profile"}>
               <Link
-                color={
-                  pathname.split("/")[1] === "user" ? "primary" : "foreground"
-                }
-                href={`user/${user?.id}`}
+                color={pathname === "/profile" ? "primary" : "foreground"}
+                href={`/profile`}
               >
                 Profile
               </Link>

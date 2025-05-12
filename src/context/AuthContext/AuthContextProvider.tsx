@@ -1,6 +1,7 @@
 "use client";
 
 import { useLogin, useSignup } from "@/hooks/useAuth";
+import { useGetUser } from "@/hooks/useUser";
 import { LoginRequest, SignupRequest } from "@/service/auth/auth.types";
 import { UserResponse } from "@/service/user/user.types";
 import { clearBasicAuth, setBasicAuth } from "@/utils/setBasicAuth";
@@ -22,6 +23,7 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<UserResponse | null>(null);
   const signupMutation = useSignup();
   const loginMutation = useLogin();
+  const { data: updatedUser } = useGetUser(user?.id || "");
 
   useEffect(() => {
     const currentUser = localStorage.getItem(LS_USER);
@@ -33,6 +35,13 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (updatedUser && user?.password) {
+      const authUser = { ...updatedUser, password: user?.password };
+      setUser(authUser);
+    }
+  }, [updatedUser]);
+
   const signup = async (data: SignupRequest) => {
     await signupMutation.mutateAsync(data);
     await login({ username: data.username, password: data.password });
@@ -40,9 +49,10 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
 
   const login = async (data: LoginRequest) => {
     const loggedInUser = await loginMutation.mutateAsync(data);
-    setUser(loggedInUser);
-    localStorage.setItem(LS_USER, JSON.stringify(loggedInUser));
-    setBasicAuth(loggedInUser.username, loggedInUser.password);
+    const authUser = { ...loggedInUser, password: data.password };
+    setUser(authUser);
+    localStorage.setItem(LS_USER, JSON.stringify(authUser));
+    setBasicAuth(authUser.username, authUser.password);
   };
 
   const logout = () => {
