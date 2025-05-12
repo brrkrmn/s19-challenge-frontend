@@ -20,6 +20,7 @@ export type UserPreview = {
   id: string;
   name: string;
   username: string;
+  about: string;
 };
 
 export type Authority = {

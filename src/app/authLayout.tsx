@@ -24,7 +24,7 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   if (isLoading) return null;
 
   return (
-    <div className="min-h-screen w-full h-full flex flex-col items-center justify-start gap-20 min-w-xs px-4 py-4">
+    <div className="min-h-screen w-full h-full flex flex-col items-center justify-start gap-10 min-w-xs px-4 py-4">
       <Nav />
       {children}
     </div>
