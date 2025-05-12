@@ -15,12 +15,12 @@ import Link from "next/link";
 import { BsThreeDots } from "react-icons/bs";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { FiEdit } from "react-icons/fi";
+import CommentPopover from "../CommentPopover/CommentPopover";
 
 const CommentCard = ({ comment }: { comment: CommentResponse }) => {
   const { user: authUser } = useAuthContext();
   const { data: tweet } = useGetTweet(comment.tweetId);
   const deleteCommentMutation = useDeleteComment(comment.id);
-  // const editCommentMutation = useEditComment(comment.id);
 
   const isTweetOwner = authUser?.id.toString() === tweet?.user.id.toString();
   const isCommentOwner = authUser?.id.toString() === comment.userId.toString();
@@ -32,7 +32,7 @@ const CommentCard = ({ comment }: { comment: CommentResponse }) => {
       key={comment.id}
     >
       {(isTweetOwner || isCommentOwner) && (
-        <Dropdown>
+        <Dropdown closeOnSelect={false}>
           <DropdownTrigger className="absolute top-6 right-0">
             <Button size="sm" variant="light" isIconOnly className="text-xl">
               <BsThreeDots />
@@ -41,7 +41,7 @@ const CommentCard = ({ comment }: { comment: CommentResponse }) => {
           <DropdownMenu variant="bordered">
             {authUser.id === comment.userId ? (
               <DropdownItem startContent={<FiEdit />} key="edit">
-                Edit
+                <CommentPopover comment={comment} />
               </DropdownItem>
             ) : null}
             <DropdownItem
