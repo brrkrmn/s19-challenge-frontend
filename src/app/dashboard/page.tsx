@@ -49,12 +49,9 @@ const Dashboard = () => {
       </Form>
       <Divider className="my-2" />
       <div className="w-full h-full flex flex-col items-center justify-start gap-6">
-        {tweets
-          ?.slice()
-          .reverse()
-          .map((tweet) => (
-            <TweetCard key={tweet.id} tweet={tweet} />
-          ))}
+        {tweets?.map((tweet) => (
+          <TweetCard key={tweet.id} tweet={tweet} />
+        ))}
       </div>
     </div>
   );

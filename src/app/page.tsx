@@ -19,7 +19,7 @@ const Home = () => {
 
   const handleSignup = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("IN SIGNUO: ", e.currentTarget);
+
     const formData = new FormData(e.currentTarget);
     signup({
       username: formData.get("username") as string,
